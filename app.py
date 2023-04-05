@@ -9,7 +9,7 @@ class StockApp:
         self.master.title("Gestion des stocks")
 
         # Modifier la taille de la fenêtre
-        window_width = 1400  # Ajuster la largeur de la fenêtre
+        window_width = 1000  # Ajuster la largeur de la fenêtre
         window_height = 500  # Ajuster la hauteur de la fenêtre
         self.master.geometry(f"{window_width}x{window_height}")
 
@@ -26,10 +26,11 @@ class StockApp:
         self.master.update_idletasks()
         screen_width = self.master.winfo_screenwidth()
         screen_height = self.master.winfo_screenheight()
-        req_width = self.master.winfo_reqwidth()
-        req_height = self.master.winfo_reqheight()
-        x_position = int((screen_width / 2) - (req_width / 2))
-        y_position = int((screen_height / 2) - (req_height / 2))
+        window_width = self.master.winfo_reqwidth()
+        window_height = self.master.winfo_reqheight()
+        x_position = int(
+            (screen_width / 2) - (window_width / 2)) - 95  # Soustrayez 200 pour un décalage plus important à gauche
+        y_position = int((screen_height / 2) - (window_height / 2)) - 100
         self.master.geometry(f"+{x_position}+{y_position}")
 
     def create_widgets(self):
