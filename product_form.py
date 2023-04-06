@@ -9,14 +9,18 @@ class ProductForm:
         self.refresh_callback = refresh_callback
         self.product_id = product_id
 
+        self.create_form_window()
+        if product_id is not None:
+            self.load_product_data()
+
+    def create_form_window(self):
         self.form_window = tk.Toplevel(self.master)
         self.form_window.title("Formulaire Produit")
 
-        ttk.Label(self.form_window, text="Nom").grid(row=0, column=0, padx=10, pady=10, sticky='w')
-        ttk.Label(self.form_window, text="Description").grid(row=1, column=0, padx=10, pady=10, sticky='w')
-        ttk.Label(self.form_window, text="Prix").grid(row=2, column=0, padx=10, pady=10, sticky='w')
-        ttk.Label(self.form_window, text="Quantité").grid(row=3, column=0, padx=10, pady=10, sticky='w')
-        ttk.Label(self.form_window, text="ID Catégorie").grid(row=4, column=0, padx=10, pady=10, sticky='w')
+        # Création des labels et des champs d'entrée
+        labels = ["Nom", "Description", "Prix", "Quantité", "ID Catégorie"]
+        for i, label_text in enumerate(labels):
+            ttk.Label(self.form_window, text=label_text).grid(row=i, column=0, padx=10, pady=10, sticky='w')
 
         self.name_entry = ttk.Entry(self.form_window)
         self.name_entry.grid(row=0, column=1, padx=10, pady=10)
@@ -28,9 +32,6 @@ class ProductForm:
         self.quantity_entry.grid(row=3, column=1, padx=10, pady=10)
         self.category_id_entry = ttk.Entry(self.form_window)
         self.category_id_entry.grid(row=4, column=1, padx=10, pady=10)
-
-        if product_id is not None:
-            self.load_product_data()
 
         submit_button = ttk.Button(self.form_window, text="Soumettre", command=self.submit_form)
         submit_button.grid(row=5, column=0, columnspan=2, pady=10)

@@ -3,6 +3,7 @@ from tkinter import ttk, messagebox
 from db import Database
 from product_form import ProductForm
 
+
 class StockApp:
     def __init__(self, master):
         self.master = master
@@ -16,13 +17,11 @@ class StockApp:
         self.db = Database()
 
         self.create_widgets()
-
         self.load_products()
 
-
-
+    # Créer les widgets pour l'application
     def create_widgets(self):
-        # Création des widgets
+        # Configuration de la table des produits
         self.tree = ttk.Treeview(self.master, columns=('id', 'nom', 'description', 'prix', 'quantite', 'id_categorie'), show='headings')
         self.tree.column('id', width=50)
         self.tree.column('nom', width=150)
@@ -38,6 +37,7 @@ class StockApp:
         self.tree.heading('id_categorie', text='ID Catégorie')
         self.tree.grid(row=0, column=0, columnspan=4, padx=20, pady=20, sticky='nsew')
 
+        # Création des boutons
         add_button = ttk.Button(self.master, text='Ajouter', command=self.open_add_product_form)
         add_button.grid(row=1, column=0, pady=10, padx=10)
 
@@ -57,15 +57,18 @@ class StockApp:
         self.master.grid_columnconfigure(3, weight=1)
         self.master.grid_rowconfigure(0, weight=1)
 
+    # Charger les produits dans l'arborescence
     def load_products(self):
         products = self.db.fetch_all_products()
         self.tree.delete(*self.tree.get_children())
         for product in products:
             self.tree.insert('', 'end', values=product)
 
+    # Ouvrir le formulaire pour ajouter un produit
     def open_add_product_form(self):
         product_form = ProductForm(self.master, self.db, self.load_products)
 
+    # Ouvrir le formulaire pour modifier un produit
     def open_update_product_form(self):
         selected_item = self.tree.selection()
         if not selected_item:
@@ -75,6 +78,7 @@ class StockApp:
         product_id = self.tree.item(selected_item)['values'][0]
         product_form = ProductForm(self.master, self.db, self.load_products, product_id)
 
+    # Supprimer un produit
     def delete_product(self):
         selected_item = self.tree.selection()
         if not selected_item:
