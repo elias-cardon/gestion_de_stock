@@ -24,7 +24,7 @@ class StockApp:
         window_width = self.master.winfo_reqwidth()
         window_height = self.master.winfo_reqheight()
         x_position = int(
-            (screen_width / 2) - (window_width / 2)) - 95  # Soustrayez 200 pour un décalage plus important à gauche
+            (screen_width / 2) - (window_width / 2)) - 95
         y_position = int((screen_height / 2) - (window_height / 2)) - 100
         self.master.geometry(f"+{x_position}+{y_position}")
 
